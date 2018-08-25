@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+kapt {
+    correctErrorTypes = true
+    generateStubs = true
+}
+
+android {
+    compileSdkVersion build_versions.compile_sdk
+    buildToolsVersion build_versions.build_tools
+    defaultConfig {
+        applicationId "app.ecomm"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        versionCode 2
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    buildTypes {
+        debug {
+            defaultPublishConfig "debug"
+            debuggable true
+        }
+        release {
+
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+    lintOptions {
+        lintConfig rootProject.file('lint.xml')
+    }
+    dexOptions {
+        preDexLibraries = false
+    }
+
+    sourceSets {
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation deps.file_tree
+    implementation deps.kotlin.coroutine
+    implementation deps.jetpack.appcompat
+    implementation deps.jetpack.design
+    implementation deps.jetpack.recyclerview
+    implementation deps.jetpack.cardview
+    implementation deps.jetpack.constraint_layout
+
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_support_compiler
+    kapt deps.dagger.compiler
+
+    implementation deps.epoxy.core
+    implementation deps.epoxy.databinding
+    kapt deps.epoxy.processor
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.gson
+    implementation deps.okhttp.core
+    implementation deps.okhttp.okhttp_logging_interceptor
+    implementation deps.gson
+    implementation deps.jetpack.lifecycle
+    implementation deps.jetpack.room_runtime
+    kapt deps.jetpack.room_compiler
+    implementation deps.kotlin.stdlib_jdk7
+    implementation "org.apache.commons:commons-lang3:3.3.2", {
+        exclude group: "com.android.support"
+        exclude module: 'support-v4'
+    }
+
+    implementation 'com.github.ybq:Android-SpinKit:1.1.0'
+}

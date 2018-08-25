@@ -1,0 +1,49 @@
+package app.ecomm.data.repo
+
+import android.arch.lifecycle.LiveData
+import app.ecomm.data.api.MiddlewareAPi
+import app.ecomm.data.api.model.ApiResponse
+import app.ecomm.data.api.model.AppExecutors
+import app.ecomm.data.api.model.Resource
+import app.ecomm.data.db.ContentDao
+import app.ecomm.data.livedata.NetworkBoundResource
+import app.ecomm.data.model.content.ECommContent
+import app.ecomm.data.util.RateLimiter
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+
+/**
+ * Fetch contents from sources (both local and remote).
+ * Repositories should interact with the client and provide data directly.
+ */
+class ContentRepository @Inject
+constructor(private val appExecutors: AppExecutors,
+            private val middlewareAPi: MiddlewareAPi, private val contentDao: ContentDao) : Repository() {
+    private val contentListRateLimiter = RateLimiter<String>(10, TimeUnit.SECONDS)
+
+    fun loadContentList(shouldFetch: Boolean): LiveData<Resource<ECommContent>> {
+        return object : NetworkBoundResource<ECommContent, ECommContent>(appExecutors) {
+            override fun saveCallResult(entity: ECommContent) {
+                contentDao.clearContentList()
+                contentDao.insertContentList(entity)
+            }
+
+            override fun shouldFetch(data: ECommContent?): Boolean {
+                return shouldFetch && contentListRateLimiter.shouldFetch(contentListUrl())
+            }
+
+            override fun loadFromDb(): LiveData<ECommContent> {
+                return contentDao.loadContentList()
+            }
+
+            override fun createCall(): LiveData<ApiResponse<ECommContent>> {
+                return middlewareAPi.getContent(contentListUrl())
+            }
+
+            override fun onFetchFailed() {
+                contentListRateLimiter.reset(contentListUrl())
+            }
+
+        }.asLiveData()
+    }
+}
