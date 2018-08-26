@@ -6,7 +6,7 @@ This application is being developed using Kotlin with Dagger2, We can also use K
 
 It used Airbnb Epoxy for showcasing products in recycler view.
 
-There are stil few issues pending like improving DB schema so that we can use joins and javadoc etc.
+There are stil few issues pending like improving DB schema so that we can use joins and javadoc, Unit test cases etc.
 
 Feel free to use the code and give suggestions if you see any scope of improvements.
 
