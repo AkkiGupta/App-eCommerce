@@ -6,9 +6,10 @@ import com.google.gson.annotations.SerializedName
 
 @Entity
 data class RankingProduct(
-        @PrimaryKey
+        @PrimaryKey(autoGenerate = true)
+        var pId: Int,
         @SerializedName("id")
-        var id: String = "",
+        var id: Int = -1,
         @SerializedName("order_count")
         var order_count: Long = 0,
         @SerializedName("view_count")

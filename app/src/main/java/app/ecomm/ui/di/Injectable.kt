@@ -1,4 +1,4 @@
-package app.ecomm.util.di
+package app.ecomm.ui.di
 
 /**
  * Marks an activity / fragment injectable.

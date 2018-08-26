@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemClickListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
+            name="itemLongClickListener"
+            type="android.view.View.OnLongClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{itemClickListener}"
+        android:onLongClick="@{itemLongClickListener}"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/background_dark_100" />
+    </LinearLayout>
+</layout>

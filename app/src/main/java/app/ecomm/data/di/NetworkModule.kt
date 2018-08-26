@@ -2,7 +2,7 @@ package app.ecomm.data.di
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import app.ecomm.data.db.MiddlewareDb
+import app.ecomm.data.db.AppDb
 import dagger.Module
 import dagger.Provides
 import app.ecomm.data.api.MiddlewareAPi
@@ -23,14 +23,14 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    internal fun provideDb(app: Application): MiddlewareDb {
-        return Room.databaseBuilder(app, MiddlewareDb::class.java, "middleware.db")
+    internal fun provideDb(app: Application): AppDb {
+        return Room.databaseBuilder(app, AppDb::class.java, "app.db")
                 .fallbackToDestructiveMigration().build()
     }
 
     @Singleton
     @Provides
-    internal fun provideContentDao(db: MiddlewareDb): ContentDao {
+    internal fun provideContentDao(db: AppDb): ContentDao {
         return db.contentDao()
     }
 }

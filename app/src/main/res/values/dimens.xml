@@ -1,0 +1,38 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="text_micro">10sp</dimen>
+    <dimen name="text_mini">12sp</dimen>
+    <dimen name="text_regular">14sp</dimen>
+    <dimen name="text_medium">16sp</dimen>
+    <dimen name="text_medium_2">18sp</dimen>
+    <dimen name="text_medium_3">24sp</dimen>
+    <dimen name="text_large">30sp</dimen>
+    <dimen name="text_xlarge">32sp</dimen>
+
+    <dimen name="spacing_zero">0dp</dimen>
+    <dimen name="spacing_mini_grid_size">2dp</dimen>
+    <dimen name="spacing_grid_size">4dp</dimen>
+    <dimen name="spacing_micro">8dp</dimen>
+    <dimen name="spacing_mini">10dp</dimen>
+    <dimen name="spacing_mini_1">14dp</dimen>
+    <dimen name="spacing_regular">16dp</dimen>
+    <dimen name="spacing_medium">20dp</dimen>
+    <dimen name="spacing_medium_2">24dp</dimen>
+    <dimen name="spacing_medium_3">28dp</dimen>
+    <dimen name="spacing_large">30dp</dimen>
+    <dimen name="spacing_xlarge">36dp</dimen>
+    <dimen name="spacing_xxlarge">40dp</dimen>
+    <dimen name="spacing_xxxlarge">50dp</dimen>
+
+    <dimen name="icon_micro">8dp</dimen>
+    <dimen name="icon_mini">12dp</dimen>
+    <dimen name="icon_regular">20dp</dimen>
+    <dimen name="icon_medium">24dp</dimen>
+    <dimen name="icon_large">28dp</dimen>
+    <dimen name="icon_xlarge">32dp</dimen>
+    <dimen name="icon_xxlarge">48dp</dimen>
+    <dimen name="icon_xxxlarge">64dp</dimen>
+
+</resources>

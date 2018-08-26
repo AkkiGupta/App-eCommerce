@@ -3,4 +3,18 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorWhite">@color/background_regular</color>
+    <color name="colorBg">#ebebeb</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorButtons">@color/colorBlack</color>
+    <color name="colorBackgroundLight">@color/background_light</color>
+    <color name="colorSubheading">#2d384a</color>
+    <color name="colorTintLight">#bdbdbd</color>
+
+    <color name="background_regular">#ffffff</color>
+    <color name="background_light">#f8f8f8</color>
+    <color name="background_dark_100">#f3f3f3</color>
+    <color name="background_dark_200">#f0f0f0</color>
+    <color name="background_red">#22EA2330</color>
 </resources>

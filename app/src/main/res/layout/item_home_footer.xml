@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/spacing_medium"
+        android:gravity="center"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="That's all for now"
+            android:padding="@dimen/spacing_medium_2"
+            android:visibility="gone"
+            android:text="@{text}"
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_xlarge"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="@dimen/spacing_medium"
+            android:src="@drawable/ic_launcher"
+            android:tint="@color/colorTintLight"
+            tools:ignore="ContentDescription" />
+    </LinearLayout>
+</layout>

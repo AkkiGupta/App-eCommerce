@@ -4,5 +4,5 @@ import app.ecomm.data.util.NetworkConstants
 
 
 abstract class Repository {
-    protected fun contentListUrl() = NetworkConstants.MIDDLEWARE_END_POINT + "json"
+    protected fun contentListUrl() = NetworkConstants.END_POINT + "json"
 }

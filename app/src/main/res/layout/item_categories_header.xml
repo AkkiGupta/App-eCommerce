@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="String" />
+
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/spacing_grid_size"
+        android:paddingEnd="@dimen/spacing_medium_2"
+        android:paddingStart="@dimen/spacing_medium_2"
+        android:paddingTop="@dimen/spacing_micro">
+
+        <TextView
+            style="@style/Home.Category.Heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/tv_more"
+            android:maxLines="1"
+            android:text="@{text}"
+            tools:text="Sample Heading"/>
+    </LinearLayout>
+</layout>

@@ -4,12 +4,25 @@ import android.arch.persistence.room.TypeConverter
 import app.ecomm.data.model.content.*
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import java.util.ArrayList
 
 /**
  * Type converters to be used for database entities.
  */
 
-class MiddlewareTypeConverters {
+class JsonTypeConverters {
+
+    class IntTypeConverters {
+        @TypeConverter
+        fun stringToObject(data: String?): Int? {
+            return Gson().fromJson(data, Int::class.java)
+        }
+
+        @TypeConverter
+        fun objectToString(stringList: Int?): String? {
+            return Gson().toJson(stringList)
+        }
+    }
 
     class CategoriesTypeConverters {
         @TypeConverter
@@ -83,15 +96,33 @@ class MiddlewareTypeConverters {
         }
     }
 
-    class CategoriesListTypeConverters {
+    class IntListTypeConverters {
         @TypeConverter
-        fun objectToList(data: String): Categories {
-            val listType = object : TypeToken<Categories>() {}.type
-            return Gson().fromJson(data, listType)
+        fun stringToList(data: String): List<Int>? {
+            val listType = object : TypeToken<ArrayList<Int>>() {
+
+            }.type
+            return Gson().fromJson<List<Int>>(data, listType)
         }
 
         @TypeConverter
-        fun ListToObject(stringList: Categories): String {
+        fun listToString(stringList: List<Int>?): String {
+            val gson = Gson()
+            return gson.toJson(stringList)
+        }
+    }
+
+    class CategoriesListTypeConverters {
+        @TypeConverter
+        fun stringToList(data: String): List<Categories>? {
+            val listType = object : TypeToken<ArrayList<Categories>>() {
+
+            }.type
+            return Gson().fromJson<List<Categories>>(data, listType)
+        }
+
+        @TypeConverter
+        fun listToString(stringList: List<Categories>?): String {
             val gson = Gson()
             return gson.toJson(stringList)
         }
@@ -99,13 +130,15 @@ class MiddlewareTypeConverters {
 
     class ProductListTypeConverters {
         @TypeConverter
-        fun objectToList(data: String): Product {
-            val listType = object : TypeToken<Product>() {}.type
-            return Gson().fromJson(data, listType)
+        fun stringToList(data: String): List<Product>? {
+            val listType = object : TypeToken<ArrayList<Product>>() {
+
+            }.type
+            return Gson().fromJson<List<Product>>(data, listType)
         }
 
         @TypeConverter
-        fun ListToObject(stringList: Product): String {
+        fun listToString(stringList: List<Product>?): String {
             val gson = Gson()
             return gson.toJson(stringList)
         }
@@ -113,13 +146,15 @@ class MiddlewareTypeConverters {
 
     class VariantListTypeConverters {
         @TypeConverter
-        fun objectToList(data: String): Variant {
-            val listType = object : TypeToken<Variant>() {}.type
-            return Gson().fromJson(data, listType)
+        fun stringToList(data: String): List<Variant>? {
+            val listType = object : TypeToken<ArrayList<Variant>>() {
+
+            }.type
+            return Gson().fromJson<List<Variant>>(data, listType)
         }
 
         @TypeConverter
-        fun ListToObject(stringList: Variant): String {
+        fun listToString(stringList: List<Variant>?): String {
             val gson = Gson()
             return gson.toJson(stringList)
         }
@@ -127,13 +162,15 @@ class MiddlewareTypeConverters {
 
     class RankingListTypeConverters {
         @TypeConverter
-        fun objectToList(data: String): Ranking {
-            val listType = object : TypeToken<Ranking>() {}.type
-            return Gson().fromJson(data, listType)
+        fun stringToList(data: String): List<Ranking>? {
+            val listType = object : TypeToken<ArrayList<Ranking>>() {
+
+            }.type
+            return Gson().fromJson<List<Ranking>>(data, listType)
         }
 
         @TypeConverter
-        fun ListToObject(stringList: Ranking): String {
+        fun listToString(stringList: List<Ranking>?): String {
             val gson = Gson()
             return gson.toJson(stringList)
         }
@@ -141,13 +178,15 @@ class MiddlewareTypeConverters {
 
     class RankingProductListTypeConverters {
         @TypeConverter
-        fun objectToList(data: String): RankingProduct {
-            val listType = object : TypeToken<RankingProduct>() {}.type
-            return Gson().fromJson(data, listType)
+        fun stringToList(data: String): List<RankingProduct>? {
+            val listType = object : TypeToken<ArrayList<RankingProduct>>() {
+
+            }.type
+            return Gson().fromJson<List<RankingProduct>>(data, listType)
         }
 
         @TypeConverter
-        fun ListToObject(stringList: RankingProduct): String {
+        fun listToString(stringList: List<RankingProduct>?): String {
             val gson = Gson()
             return gson.toJson(stringList)
         }

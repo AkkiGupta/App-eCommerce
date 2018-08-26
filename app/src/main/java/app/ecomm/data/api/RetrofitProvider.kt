@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitProvider {
     private val annotationRegistration = HashMap<Int, RequestPolicy>()
-    private val showNetworkLogs: Boolean = false
+    private val showNetworkLogs: Boolean = true
 
     fun provideDefaultRetrofit(context: Application): Retrofit {
         val factories = arrayListOf<CallAdapter.Factory>()
@@ -26,7 +26,7 @@ object RetrofitProvider {
 //        factories.add(Retrofit2Platform.defaultCallAdapterFactory(null))
 
         return Retrofit.Builder()
-                .baseUrl(NetworkConstants.dummyBaseUrl)
+                .baseUrl(NetworkConstants.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(provideOkHttpClient(context))
                 .addCallAdapterFactory(AnnotationCallAdapterFactory(factories, annotationRegistration))

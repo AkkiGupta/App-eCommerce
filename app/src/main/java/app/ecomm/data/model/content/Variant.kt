@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName
 
 @Entity
 data class Variant(
-        @PrimaryKey
+        @PrimaryKey(autoGenerate = true)
+        var pid:Int,
         @SerializedName("id")
-        var id: String = "",
+        var id: Int = -1,
         @SerializedName("color")
         var color: String = "",
         @SerializedName("size")
         var size: Int = 0,
         @SerializedName("price")
-        var price: Int = 0
-)
+        var price: Int = 0)

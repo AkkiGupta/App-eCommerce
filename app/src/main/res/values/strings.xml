@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ecomm-app</string>
+    <string name="network_error">Please check your network and try again.</string>
+
+    <!-- Button Strings -->
+    <string name="button_categories">Categories</string>
+    <string name="button_ranking">Ranking</string>
 </resources>

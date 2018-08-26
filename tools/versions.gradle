@@ -15,7 +15,6 @@ versions.gson = "2.8.1"
 versions.play_services = "11.8.0"
 versions.databinding = "3.1.2"
 versions.apache_commons_lang = "3.3.2"
-versions.expectanim = "1.0.7"
 
 versions.support = "27.0.1"
 versions.constraint_layout = "1.1.0"
@@ -25,6 +24,7 @@ versions.room = "1.1.1"
 versions.ktx = "1.0.0-alpha1"
 versions.coroutine = "0.23.3"
 versions.epoxy = "2.14.0"
+versions.stetho = "1.5.0"
 
 def deps = [:]
 
@@ -88,6 +88,10 @@ kotlin.extensions_plugin = "org.jetbrains.kotlin:kotlin-android-extensions:$vers
 kotlin.coroutine =  "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutine"
 deps.kotlin = kotlin
 
+def facebook = [:]
+facebook.stetho = "com.facebook.stetho:stetho:$versions.stetho"
+deps.facebook = facebook
+
 deps.file_tree =  fileTree(include: ['*.jar'], dir: 'libs')
 deps.gson =  "com.google.code.gson:gson:$versions.gson"
 deps.multidex =  "com.android.support:multidex:$versions.multi_dex"
@@ -95,7 +99,6 @@ deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_g
 deps.google_services_plugin = "com.google.gms:google-services:$versions.google_services_plugin"
 deps.databinding_compiler = "com.android.databinding:compiler:$versions.databinding"
 deps.apache_commons_lang = "org.apache.commons:commons-lang3:$versions.apache_commons_lang"
-deps.expectanim = "com.github.florent37:expectanim:$versions.expectanim"
 
 ext.deps = deps
 

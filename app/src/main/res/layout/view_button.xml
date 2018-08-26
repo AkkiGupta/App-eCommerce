@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/spacing_mini"
+    android:paddingBottom="@dimen/spacing_mini"
+    android:paddingStart="@dimen/spacing_medium_3"
+    android:paddingEnd="@dimen/spacing_medium_3"
+    android:background="@drawable/bg_drawable"
+    android:minWidth="170dp">
+
+    <ImageView
+        android:id="@+id/imgvwIcon"
+        android:layout_width="@dimen/icon_mini"
+        android:layout_height="@dimen/icon_mini"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="@dimen/spacing_regular"
+        android:visibility="gone"
+        tool:layout_constraintBottom_toBottomOf="parent"
+        tool:layout_constraintHorizontal_chainStyle="packed"
+        tool:layout_constraintLeft_toLeftOf="parent"
+        tool:layout_constraintRight_toLeftOf="@id/tvLabel"
+        tool:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_dummy" />
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:justificationMode="inter_word"
+        android:textColor="@color/colorBlack"
+        tools:text="Dummy text"
+        android:textSize="16sp"
+        tool:layout_constraintBottom_toBottomOf="parent"
+        tool:layout_constraintHorizontal_chainStyle="packed"
+        tool:layout_constraintLeft_toRightOf="@id/imgvwIcon"
+        tool:layout_constraintRight_toRightOf="parent"
+        tool:layout_constraintTop_toTopOf="parent"
+        tool:layout_constraintVertical_chainStyle="packed" />
+</android.support.constraint.ConstraintLayout>

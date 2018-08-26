@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBg">
+
+    <data>
+
+        <import type="app.ecomm.data.api.model.Status" />
+
+        <import type="app.ecomm.data.api.model.Resource" />
+
+        <variable
+            name="resource"
+            type="Resource" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            visibleGone="@{resource.status == Status.ERROR}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/spacing_grid_size"
+            android:text="@string/network_error"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btnCategories"
+            style="@style/Home.Buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_mini"
+            android:background="@drawable/bg_drawable"
+            android:ems="9"
+            android:text="@string/button_categories"
+            app:layout_constraintEnd_toStartOf="@+id/btnRanking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/btnRanking"
+            style="@style/Home.Buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_drawable"
+            android:ems="9"
+            android:text="@string/button_ranking"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCategories"
+            app:layout_constraintTop_toTopOf="@+id/btnCategories" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvHomeListing"
+            visibleGone="@{resource.data != null}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/spacing_regular"
+            android:paddingTop="@dimen/spacing_xxxlarge"
+            app:layout_constraintTop_toBottomOf="@+id/btnCategories"
+            android:layout_marginTop="@dimen/spacing_micro"
+            android:scrollbars="none"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+        <app.ecomm.ui.widget.ProgressBar
+            android:id="@+id/progressBar"
+            visibleGone="@{resource == null || resource.status == Status.LOADING}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

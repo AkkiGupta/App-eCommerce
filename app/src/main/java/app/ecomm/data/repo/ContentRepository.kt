@@ -7,7 +7,9 @@ import app.ecomm.data.api.model.AppExecutors
 import app.ecomm.data.api.model.Resource
 import app.ecomm.data.db.ContentDao
 import app.ecomm.data.livedata.NetworkBoundResource
+import app.ecomm.data.model.content.Categories
 import app.ecomm.data.model.content.ECommContent
+import app.ecomm.data.model.content.Product
 import app.ecomm.data.util.RateLimiter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -24,8 +26,8 @@ constructor(private val appExecutors: AppExecutors,
     fun loadContentList(shouldFetch: Boolean): LiveData<Resource<ECommContent>> {
         return object : NetworkBoundResource<ECommContent, ECommContent>(appExecutors) {
             override fun saveCallResult(entity: ECommContent) {
-                contentDao.clearContentList()
-                contentDao.insertContentList(entity)
+                contentDao.clearAllTables()
+                contentDao.insertECommContent(entity)
             }
 
             override fun shouldFetch(data: ECommContent?): Boolean {
@@ -45,5 +47,17 @@ constructor(private val appExecutors: AppExecutors,
             }
 
         }.asLiveData()
+    }
+
+    fun getCategoriesbyIdLD(categoryIds: List<Int>): LiveData<List<Categories>> {
+        return contentDao.getCategoriesByIdLD(categoryIds)
+    }
+
+    fun getCategoriesbyId(categoryIds: List<Int>): List<Categories> {
+        return contentDao.getCategoriesById(categoryIds)
+    }
+
+    fun getProductById(productId: Int): LiveData<Product> {
+        return contentDao.getProductById(productId)
     }
 }
