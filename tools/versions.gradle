@@ -1,6 +1,5 @@
 /**
- * Shared file between builds so that they can all use the same dependencies and
- * maven repositories.
+ * Use the same dependencies and maven repositories.
  **/
 ext.deps = [:]
 def versions = [:]
@@ -110,9 +109,7 @@ build_versions.build_tools = "28.0.2"
 ext.build_versions = build_versions
 
 def addRepos(RepositoryHandler handler) {
-    handler.mavenCentral()
     handler.google()
-    handler.maven { url "https://jitpack.io" }
     handler.jcenter()
     handler.maven {
         url "https://mvnrepository.com/artifact/org.apache.commons/commons-lang3"

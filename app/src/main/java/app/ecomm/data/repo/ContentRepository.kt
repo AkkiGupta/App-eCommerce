@@ -10,6 +10,7 @@ import app.ecomm.data.livedata.NetworkBoundResource
 import app.ecomm.data.model.content.Categories
 import app.ecomm.data.model.content.ECommContent
 import app.ecomm.data.model.content.Product
+import app.ecomm.data.model.content.Ranking
 import app.ecomm.data.util.RateLimiter
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -59,6 +60,14 @@ constructor(private val appExecutors: AppExecutors,
 
     fun getProductById(productId: Int): LiveData<Product> {
         return contentDao.getProductById(productId)
+    }
+
+    fun getProductByRank(rank: String): LiveData<Ranking> {
+        return contentDao.getProductByRank(rank)
+    }
+
+    fun getAllProductsRankWise(): LiveData<List<Ranking>> {
+        return contentDao.getAllProductRankWise()
     }
 
     fun loadContentByCatIdList(catId: Int): LiveData<List<Categories>> {

@@ -2,6 +2,7 @@ package app.ecomm.ui.di.modules
 
 import app.ecomm.ui.fragment.DetailFragment
 import app.ecomm.ui.fragment.MainFragment
+import app.ecomm.ui.fragment.RankFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -15,4 +16,7 @@ abstract class FragmentBuildersModule {
 
     @ContributesAndroidInjector
     internal abstract fun contributeDetailFragment(): DetailFragment
+
+    @ContributesAndroidInjector
+    internal abstract fun contributeRankFragment(): RankFragment
 }

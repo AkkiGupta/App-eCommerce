@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.ecomm.R
-import app.ecomm.core.di.Injectable
 import app.ecomm.core.viewmodel.ContentViewModel
 import app.ecomm.data.api.model.Resource
 import app.ecomm.data.api.model.Status
@@ -17,6 +16,7 @@ import app.ecomm.data.model.content.Product
 import app.ecomm.data.model.content.Variant
 import app.ecomm.databinding.FragmentProductDetailBinding
 import app.ecomm.ui.adapter.DetailProductAdapter
+import app.ecomm.ui.di.Injectable
 import app.ecomm.util.AutoClearedValue
 import app.ecomm.util.inflateWithDataBinding
 import kotlinx.android.synthetic.main.fragment_product_detail.*

@@ -1,14 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.activity.MainActivity">
+<layout>
 
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
+    <data>
+
+        <variable
+            name="showFilter"
+            type="Boolean" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></FrameLayout>
+        android:layout_height="match_parent"
+        tools:context=".ui.activity.MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+        <FrameLayout
+            android:id="@+id/fragmentContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCategories"></FrameLayout>
+
+        <Spinner
+            android:id="@+id/btnCategories"
+            visibleGone="@{showFilter}"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="@dimen/spacing_mini"
+            android:background="@drawable/bg_drawable"
+            android:gravity="center_horizontal"
+            android:prompt="@string/button_categories"
+            android:spinnerMode="dialog"
+            app:layout_constraintEnd_toStartOf="@+id/btnRanking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/btnRanking"
+            visibleGone="@{showFilter}"
+            android:layout_width="180dp"
+            android:layout_height="35dp"
+            android:background="@drawable/bg_drawable"
+            android:gravity="center_horizontal"
+            android:prompt="@string/button_ranking"
+            android:spinnerMode="dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnCategories"
+            app:layout_constraintTop_toTopOf="@+id/btnCategories" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

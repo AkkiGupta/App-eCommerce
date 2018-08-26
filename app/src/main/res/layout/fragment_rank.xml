@@ -32,7 +32,7 @@
             tools:visibility="gone" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rvHomeListing"
+            android:id="@+id/rvRankListing"
             visibleGone="@{resource.data != null}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -41,7 +41,8 @@
             android:paddingBottom="@dimen/spacing_regular"
             android:paddingTop="@dimen/spacing_xxxlarge"
             android:scrollbars="none"
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/btnCategories" />
 
         <app.ecomm.ui.widget.ProgressBar
             android:id="@+id/progressBar"

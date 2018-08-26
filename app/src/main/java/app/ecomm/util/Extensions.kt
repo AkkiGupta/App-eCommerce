@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlin.reflect.KMutableProperty1
 
 /** Get children of a [ViewGroup] */
 val ViewGroup.children: List<*>

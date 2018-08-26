@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import app.ecomm.EcommApplication
-import app.ecomm.core.di.Injectable
-import com.airtel.vision.di.DaggerCoreAppComponent
 import dagger.android.AndroidInjection
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector

@@ -11,6 +11,7 @@ import app.ecomm.data.livedata.AbsentLiveData
 import app.ecomm.data.model.content.Categories
 import app.ecomm.data.model.content.ECommContent
 import app.ecomm.data.model.content.Product
+import app.ecomm.data.model.content.Ranking
 import app.ecomm.data.repo.ContentRepository
 import app.ecomm.util.isNotNullOrEmpty
 import javax.inject.Inject
@@ -34,6 +35,14 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
     private var contentByCatIdResponse: WiseLiveData<Resource<ECommContent>> = WiseLiveData()
     private var contentByCatId: LiveData<List<Categories>>
     private var contentByCatIdMutableLiveData = MutableLiveData<Int>()
+
+    private var productByRank: LiveData<Ranking>
+    private var productByRankMutableLiveData = MutableLiveData<String>()
+    private var productByRankResponse: WiseLiveData<Resource<Ranking>> = WiseLiveData()
+
+    private var allProductRankWise: LiveData<List<Ranking>>
+    private var allProductRankWiseMutableLiveData = MutableLiveData<Boolean>()
+    private var allProductRankWiseResponse: WiseLiveData<Resource<List<Ranking>>> = WiseLiveData()
 
     init {
         content = Transformations.switchMap(contentMutableLiveData) {
@@ -70,6 +79,24 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
             }
         }
         initProductByIdResponse()
+
+        productByRank = Transformations.switchMap(productByRankMutableLiveData) {
+            if(it != null){
+                contentRepository.getProductByRank(it)
+            } else {
+                AbsentLiveData.create()
+            }
+        }
+        initProductByRankResponse()
+
+        allProductRankWise = Transformations.switchMap(allProductRankWiseMutableLiveData) {
+            if(it){
+                contentRepository.getAllProductsRankWise()
+            } else {
+                AbsentLiveData.create()
+            }
+        }
+        initAllProductRankWiseResponse()
     }
 
     private fun initContentResponse() {
@@ -108,6 +135,26 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
         }
     }
 
+    private fun initProductByRankResponse() {
+        productByRankResponse.addSource(productByRank) { resource ->
+            if(resource == null){
+                productByRankResponse.dispatchError(Resource.error(Error.build(Error.ErrorValue.ERROR_NETWORK_ERROR),resource))
+            } else {
+                productByRankResponse.dispatchSuccess(Resource.success(resource))
+            }
+        }
+    }
+
+    private fun initAllProductRankWiseResponse() {
+        allProductRankWiseResponse.addSource(allProductRankWise) { resource ->
+            if(resource == null){
+                allProductRankWiseResponse.dispatchError(Resource.error(Error.build(Error.ErrorValue.ERROR_NETWORK_ERROR),resource))
+            } else {
+                allProductRankWiseResponse.dispatchSuccess(Resource.success(resource))
+            }
+        }
+    }
+
     fun getContent(): LiveData<Resource<ECommContent>> {
         contentMutableLiveData.value = true
         return contentResponse
@@ -122,6 +169,18 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
         contentByCatIdMutableLiveData.value = catId
         contentByCatIdResponse.dispatchLoading(Resource.loading(null))
         return contentByCatIdResponse
+    }
+
+    fun getAllProductsRankWise(): LiveData<Resource<List<Ranking>>>{
+        allProductRankWiseMutableLiveData.value = true
+        allProductRankWiseResponse.dispatchLoading(Resource.loading(null))
+        return allProductRankWiseResponse
+    }
+
+    fun getProductsByRank(rank: String): LiveData<Resource<Ranking>>{
+        productByRankMutableLiveData.value = rank
+        productByRankResponse.dispatchLoading(Resource.loading(null))
+        return productByRankResponse
     }
 
     fun getProductById(productId: Int): LiveData<Resource<Product>>{

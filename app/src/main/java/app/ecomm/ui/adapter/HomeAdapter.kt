@@ -29,7 +29,7 @@ class HomeAdapter constructor(val itemClickListener: ItemClickListener)
                 addHeadingItem(category)
                 if(category.child_categories.isNotNullOrEmpty()){
                     var subCatModels = addSubCategoryItems(category).distinct()
-                    addCarouselModels(category, subCatModels, 3.5f)
+                    addCarouselModels(category, subCatModels, 3.1f)
                 }else{
                     val models = addProductItems(category).distinct()
                     addCarouselModels(category, models, 2.4f)

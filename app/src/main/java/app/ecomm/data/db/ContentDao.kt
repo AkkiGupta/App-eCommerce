@@ -27,6 +27,12 @@ abstract class ContentDao {
     @Query("select * from product where id = :productId")
     abstract fun getProductById(productId: Int) : LiveData<Product>
 
+    @Query("select * from ranking where name = :rank")
+    abstract fun getProductByRank(rank: String) : LiveData<Ranking>
+
+    @Query("select * from ranking")
+    abstract fun getAllProductRankWise() : LiveData<List<Ranking>>
+
     @Query("select * from categories where id = :catId")
     abstract fun getProductsByCatId(catId: Int) : LiveData<List<Categories>>
 

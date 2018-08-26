@@ -9,22 +9,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import app.ecomm.R
-import app.ecomm.core.di.Injectable
 import app.ecomm.core.viewmodel.ContentViewModel
 import app.ecomm.data.api.model.Resource
 import app.ecomm.data.api.model.Status
-import app.ecomm.data.model.content.ChildCategories
-import app.ecomm.data.model.content.ECommContent
-import app.ecomm.data.model.content.Product
+import app.ecomm.data.model.content.*
 import app.ecomm.databinding.FragmentMainBinding
 import app.ecomm.ui.activity.MainActivity
 import app.ecomm.ui.adapter.HomeAdapter
+import app.ecomm.ui.di.Injectable
 import app.ecomm.util.AutoClearedValue
 import app.ecomm.util.inflateWithDataBinding
 import kotlinx.android.synthetic.main.fragment_main.*
 import javax.inject.Inject
 
-class MainFragment : BaseFragment(),Injectable {
+
+class MainFragment : BaseFragment(), Injectable {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var contentViewModel: ContentViewModel
@@ -62,28 +61,19 @@ class MainFragment : BaseFragment(),Injectable {
             }
         })
         rvHomeListing.adapter = homeController.adapter
-
-//        binding.get()?.retryCallback = object : RetryCallback {
-//            override fun retry() {
-//                sampleContentViewModel.retryContentList()
-//            }
-//        }
     }
 
     private fun initViewModels() {
         contentViewModel = ViewModelProviders.of(this, viewModelFactory)[ContentViewModel::class.java]
 
-//        contentViewModel = ViewModelProviders.of(this)
-//                .get(ContentViewModel::class.java)
-
     }
 
     private fun fetchContent(id: Int = -1) {
-        if(id != -1){
+        if (id != -1) {
             contentViewModel.getProductsByCatId(id).observe(this, Observer {
                 onCatIdContentResponse(it)
             })
-        }else {
+        } else {
             contentViewModel.getContent().observe(this, Observer {
                 onContentResponse(it)
             })
@@ -94,12 +84,13 @@ class MainFragment : BaseFragment(),Injectable {
         binding.get()?.resource = resource
         Log.d("Fragment", "Response ${resource?.status} ${resource?.data}")
 
-        when(resource?.status) {
+        when (resource?.status) {
             Status.SUCCESS,
             Status.LOADING -> {
                 homeController.setData(resource.data?.categories, "Dummy Arg")
             }
-            Status.ERROR -> {}
+            Status.ERROR -> {
+            }
         }
     }
 
@@ -108,17 +99,26 @@ class MainFragment : BaseFragment(),Injectable {
         binding.get()?.resource = resource
         Log.d("Fragment", "Response ${resource?.status} ${resource?.data}")
 
-        when(resource?.status) {
+        when (resource?.status) {
             Status.SUCCESS,
             Status.LOADING -> {
-                homeController.setData(resource.data?.categories, "Dummy Arg")
+                resource.data?.let {
+                    homeController.setData(it.categories, "Dummy Arg")
+                    it.rankings?.let { rankings ->
+                        (activity as MainActivity).setUpRankingSpinner(rankings)
+                    }
+                    it.categories?.let { cat ->
+                        (activity as MainActivity).setUpCategorySpinner(cat)
+                    }
+                }
             }
-            Status.ERROR -> {}
+            Status.ERROR -> {
+            }
         }
     }
 
     companion object {
-        fun newInstance(catId: Int, arg: String=""): MainFragment {
+        fun newInstance(catId: Int): MainFragment {
             val args = Bundle()
             val fragment = MainFragment()
             args.putInt("Sub_Cat_id", catId)
