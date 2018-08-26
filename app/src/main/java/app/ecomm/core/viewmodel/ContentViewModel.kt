@@ -31,6 +31,10 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
     private var productByIdMutableLiveData = MutableLiveData<Int>()
     private var productByIdResponse: WiseLiveData<Resource<Product>> = WiseLiveData()
 
+    private var contentByCatIdResponse: WiseLiveData<Resource<ECommContent>> = WiseLiveData()
+    private var contentByCatId: LiveData<List<Categories>>
+    private var contentByCatIdMutableLiveData = MutableLiveData<Int>()
+
     init {
         content = Transformations.switchMap(contentMutableLiveData) {
             if (it == true) {
@@ -40,6 +44,15 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
             }
         }
         initContentResponse()
+
+        contentByCatId = Transformations.switchMap(contentByCatIdMutableLiveData) {
+            if (it != -1) {
+                contentRepository.loadContentByCatIdList(it)
+            } else {
+                AbsentLiveData.create()
+            }
+        }
+        initContentByCatIdResponse()
 
         categoriesByIdLD = Transformations.switchMap(categoriesByIdLDMutableLiveData) {
             if(it.isNotNullOrEmpty()){
@@ -75,6 +88,16 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
         }
     }
 
+    private fun initContentByCatIdResponse() {
+        contentByCatIdResponse.addSource(contentByCatId) { resource ->
+            if(resource != null) {
+                contentByCatIdResponse.dispatchSuccess(Resource.success(ECommContent(1, resource)))
+            } else {
+                contentResponse.dispatchError(Resource.error(Error.build(Error.ErrorValue.ERROR_NETWORK_ERROR),resource))
+            }
+        }
+    }
+
     private fun initProductByIdResponse() {
         productByIdResponse.addSource(productById) { resource ->
             if(resource == null){
@@ -93,6 +116,12 @@ constructor(private val contentRepository: ContentRepository): BaseViewModel(){
     fun getCategoriesByIdLD(listIds: List<Int>): LiveData<List<Categories>>{
         categoriesByIdLDMutableLiveData.value = listIds
         return categoriesByIdLD
+    }
+
+    fun getProductsByCatId(catId: Int): LiveData<Resource<ECommContent>>{
+        contentByCatIdMutableLiveData.value = catId
+        contentByCatIdResponse.dispatchLoading(Resource.loading(null))
+        return contentByCatIdResponse
     }
 
     fun getProductById(productId: Int): LiveData<Resource<Product>>{

@@ -22,9 +22,16 @@ class MainActivity : BaseActivity(), Injectable {
         }
     }
 
+    internal fun launchSubCategoryFragment(catId: Int) {
+        supportFragmentManager.transaction {
+            addToBackStack("")
+            add(R.id.fragmentContainer, MainFragment.newInstance(catId))
+        }
+    }
+
     private fun launchContentFragment() {
         supportFragmentManager.transaction {
-            replace(R.id.fragmentContainer, MainFragment.newInstance("dummy"),
+            replace(R.id.fragmentContainer, MainFragment.newInstance(-1, "dummy"),
                     MainFragment::class.java.simpleName)
         }
     }

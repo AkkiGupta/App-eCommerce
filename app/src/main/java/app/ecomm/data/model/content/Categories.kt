@@ -16,5 +16,4 @@ data class Categories(
         @SerializedName("products")
         var products: List<Product>,
         @SerializedName("child_categories")
-        var child_categories: List<Int>? = null,
-        var superCategoryType:Boolean = child_categories.isNotNullOrEmpty())
+        var child_categories: List<Int>? = null)

@@ -27,6 +27,9 @@ abstract class ContentDao {
     @Query("select * from product where id = :productId")
     abstract fun getProductById(productId: Int) : LiveData<Product>
 
+    @Query("select * from categories where id = :catId")
+    abstract fun getProductsByCatId(catId: Int) : LiveData<List<Categories>>
+
     @Query("delete from categories")
     abstract fun clearCategories()
 

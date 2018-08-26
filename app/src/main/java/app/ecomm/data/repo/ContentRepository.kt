@@ -60,4 +60,8 @@ constructor(private val appExecutors: AppExecutors,
     fun getProductById(productId: Int): LiveData<Product> {
         return contentDao.getProductById(productId)
     }
+
+    fun loadContentByCatIdList(catId: Int): LiveData<List<Categories>> {
+        return contentDao.getProductsByCatId(catId)
+    }
 }

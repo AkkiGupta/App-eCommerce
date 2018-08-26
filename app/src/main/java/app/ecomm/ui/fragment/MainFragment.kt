@@ -13,6 +13,7 @@ import app.ecomm.core.di.Injectable
 import app.ecomm.core.viewmodel.ContentViewModel
 import app.ecomm.data.api.model.Resource
 import app.ecomm.data.api.model.Status
+import app.ecomm.data.model.content.ChildCategories
 import app.ecomm.data.model.content.ECommContent
 import app.ecomm.data.model.content.Product
 import app.ecomm.databinding.FragmentMainBinding
@@ -30,6 +31,7 @@ class MainFragment : BaseFragment(),Injectable {
     private lateinit var binding: AutoClearedValue<FragmentMainBinding>
     private lateinit var homeController: HomeAdapter
 
+    private var catId: Int = -1
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val dataBinding =
@@ -41,13 +43,19 @@ class MainFragment : BaseFragment(),Injectable {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        catId = arguments?.getInt("Sub_Cat_id") ?: -1
         initUi()
         initViewModels()
-        fetchContent()
+        fetchContent(catId)
     }
 
     private fun initUi() {
         homeController = HomeAdapter(object : HomeAdapter.ItemClickListener {
+            override fun onSubCategoryItemClicked(childCategory: ChildCategories) {
+                (activity as MainActivity)
+                        .launchSubCategoryFragment(childCategory.id)
+            }
+
             override fun onContentItemClicked(prodcut: Product) {
                 (activity as MainActivity)
                         .launchProductDetailFragment(prodcut.id)
@@ -70,10 +78,29 @@ class MainFragment : BaseFragment(),Injectable {
 
     }
 
-    private fun fetchContent() {
-        contentViewModel.getContent().observe(this, Observer {
-            onContentResponse(it)
-        })
+    private fun fetchContent(id: Int = -1) {
+        if(id != -1){
+            contentViewModel.getProductsByCatId(id).observe(this, Observer {
+                onCatIdContentResponse(it)
+            })
+        }else {
+            contentViewModel.getContent().observe(this, Observer {
+                onContentResponse(it)
+            })
+        }
+    }
+
+    private fun onCatIdContentResponse(resource: Resource<ECommContent>?) {
+        binding.get()?.resource = resource
+        Log.d("Fragment", "Response ${resource?.status} ${resource?.data}")
+
+        when(resource?.status) {
+            Status.SUCCESS,
+            Status.LOADING -> {
+                homeController.setData(resource.data?.categories, "Dummy Arg")
+            }
+            Status.ERROR -> {}
+        }
     }
 
     private fun onContentResponse(resource: Resource<ECommContent>?) {
@@ -91,10 +118,10 @@ class MainFragment : BaseFragment(),Injectable {
     }
 
     companion object {
-        fun newInstance(arg: String): MainFragment {
+        fun newInstance(catId: Int, arg: String=""): MainFragment {
             val args = Bundle()
             val fragment = MainFragment()
-            args.putString("arg", arg)
+            args.putInt("Sub_Cat_id", catId)
             fragment.arguments = args
             return fragment
         }

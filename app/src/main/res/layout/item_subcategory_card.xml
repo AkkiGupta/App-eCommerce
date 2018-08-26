@@ -7,7 +7,7 @@
 
         <variable
             name="category"
-            type="app.ecomm.data.model.content.Categories" />
+            type="app.ecomm.data.model.content.ChildCategories" />
 
         <variable
             name="itemClickListener"
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/spacing_medium"
-                android:text="@{category.name}"
+                android:text="@{category.catName}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Sample Name" />
